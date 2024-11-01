@@ -6,15 +6,18 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/spf13/viper"
 )
 
 type UsersController struct {
 	Usecase *users.UsersUsecase
+	Viper   *viper.Viper
 }
 
-func NewUsersController(usecase *users.UsersUsecase) *UsersController {
+func NewUsersController(usecase *users.UsersUsecase, viper *viper.Viper) *UsersController {
 	return &UsersController{
 		Usecase: usecase,
+		Viper:   viper,
 	}
 }
 func (c *UsersController) GetUser(ctx *fiber.Ctx) error {
@@ -155,7 +158,7 @@ func (c *UsersController) RegisterCallbackGoogle(ctx *fiber.Ctx) error {
 
 	ctx.Cookie(cookie)
 
-	return ctx.Redirect("http://127.0.0.1:3000/home")
+	return ctx.Redirect(c.Viper.GetString("ip.web") + "/home")
 }
 
 func (c *UsersController) LoginGoogle(ctx *fiber.Ctx) error {
@@ -204,13 +207,13 @@ func (c *UsersController) LoginCallbackGoogle(ctx *fiber.Ctx) error {
 
 	ctx.Cookie(cookie)
 
-	return ctx.Redirect("http://127.0.0.1:3000/home")
+	return ctx.Redirect(c.Viper.GetString("ip.web") + "/home")
 }
 
 func (c *UsersController) Logout(ctx *fiber.Ctx) error {
 	ctx.ClearCookie("auth-token")
 
 	return ctx.JSON(fiber.Map{
-		"url": "http://127.0.0.1:3000",
+		"url": c.Viper.GetString("ip.web"),
 	})
 }

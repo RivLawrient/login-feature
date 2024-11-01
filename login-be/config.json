@@ -20,5 +20,9 @@
         "max": 100,
         "lifetime": 300
       }
+    },
+    "ip": {
+      "api": "https://api.lawrients.my.id",
+      "web": "https://lawrients.my.id"
     }
   }
