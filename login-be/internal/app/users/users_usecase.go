@@ -12,6 +12,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
+	"github.com/spf13/viper"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -22,13 +23,15 @@ type UsersUsecase struct {
 	DB              *gorm.DB
 	Validate        *validator.Validate
 	UsersRepository *UsersRepository
+	Viper           *viper.Viper
 }
 
-func NewUsersUsecase(db *gorm.DB, validate *validator.Validate, usersRepository *UsersRepository) *UsersUsecase {
+func NewUsersUsecase(db *gorm.DB, validate *validator.Validate, usersRepository *UsersRepository, viper *viper.Viper) *UsersUsecase {
 	return &UsersUsecase{
 		DB:              db,
 		Validate:        validate,
 		UsersRepository: usersRepository,
+		Viper:           viper,
 	}
 }
 
@@ -111,7 +114,7 @@ func (u *UsersUsecase) Login(request *LoginUserRequest) (*UserResponse, *fiber.E
 
 var (
 	googleOauthConfig = &oauth2.Config{
-		RedirectURL:  "http://127.0.0.1:8080/auth/register/google/callback",                       // Ganti dengan redirect URI yang sesuai
+		RedirectURL:  "https://api.lawrients.my.id/auth/register/google/callback",                 // Ganti dengan redirect URI yang sesuai
 		ClientID:     "1095824475598-snu63od692kqkteje6ta9svlcajg7tei.apps.googleusercontent.com", // Ganti dengan Client ID dari Google Console
 		ClientSecret: "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",                                       // Ganti dengan Client Secret dari Google Console
 		Scopes: []string{"https://www.googleapis.com/auth/userinfo.email",
@@ -199,7 +202,7 @@ func (u *UsersUsecase) CreateByGoogle(request *RegisterUserGoogle) (*UserRespons
 
 var (
 	googleOauthConfig2 = &oauth2.Config{
-		RedirectURL:  "http://127.0.0.1:8080/auth/login/google/callback",                          // Ganti dengan redirect URI yang sesuai
+		RedirectURL:  "https://api.lawrients.my.id/auth/login/google/callback",                    // Ganti dengan redirect URI yang sesuai
 		ClientID:     "1095824475598-snu63od692kqkteje6ta9svlcajg7tei.apps.googleusercontent.com", // Ganti dengan Client ID dari Google Console
 		ClientSecret: "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",                                       // Ganti dengan Client Secret dari Google Console
 		Scopes: []string{"https://www.googleapis.com/auth/userinfo.email",

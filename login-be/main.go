@@ -15,7 +15,7 @@ func main() {
 	validate := config.NewValidator(viperConf)
 
 	repoUsers := users.NewUsersRepository()
-	usecaseUsers := users.NewUsersUsecase(db, validate, repoUsers)
+	usecaseUsers := users.NewUsersUsecase(db, validate, repoUsers, viperConf)
 	controllerUsers := controller.NewUsersController(usecaseUsers, viperConf)
 	// authMiddleware := middleware.NewAuth(usecaseUsers)
 
