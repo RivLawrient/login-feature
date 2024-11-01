@@ -14,7 +14,7 @@ type RouteConfig struct {
 
 func (c *RouteConfig) Setup() {
 	c.App.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://127.0.0.1:3000",
+		AllowOrigins:     "https://lawrients.my.id",
 		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
 		AllowHeaders:     "Content-Type, Authorization, Origin, Accept",
 		AllowCredentials: true,
