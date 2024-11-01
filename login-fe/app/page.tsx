@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
   const getCookie = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8080/hai", {
+      const response = await axios.get("https://api.lawrients.my.id/hai", {
         // withCredentials: true,
       });
       console.log(response);

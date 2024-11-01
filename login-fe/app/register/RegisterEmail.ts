@@ -5,7 +5,7 @@ export async function RegEmail(
   email: string,
   password: string
 ) {
-  const url = "http://127.0.0.1:8080/auth/register";
+  const url = "https://api.lawrients.my.id/auth/register";
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -22,7 +22,7 @@ export async function RegEmail(
   const data = await response.json();
 
   if (response.ok) {
-    redirect("http://127.0.0.1:3000/home");
+    redirect("https://lawrients.my.id/home");
   } else {
     alert(data.errors);
   }

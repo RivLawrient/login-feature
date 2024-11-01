@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Homes() {
   const getCookie = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8080/api/user", {
+      const response = await axios.get("https://api.lawrients.my.id/api/user", {
         withCredentials: true,
       });
       console.log(response);
@@ -18,7 +18,7 @@ export default function Homes() {
 
   const logout = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8080/bye", {
+      const response = await axios.get("https://api.lawrients.my.id/bye", {
         withCredentials: true,
       });
       router.push("/");
